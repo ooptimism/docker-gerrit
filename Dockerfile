@@ -14,7 +14,7 @@ ENV GERRIT_INIT_ARGS "--install-plugin=delete-project --install-plugin=gitiles -
 RUN adduser -D -h "${GERRIT_HOME}" -g "Gerrit User" -s /sbin/nologin "${GERRIT_USER}"
 
 RUN set -x \
-    && apk add --update --no-cache git openssh-client openssl bash perl perl-cgi git-gitweb curl su-exec procmail
+    && apk add --update --no-cache git openssh-client openssl bash perl perl-cgi git-gitweb curl su-exec procmail tcpdump
 
 RUN mkdir /docker-entrypoint-init.d
 
@@ -35,9 +35,6 @@ RUN curl -fSsL \
     -o ${GERRIT_HOME}/events-log.jar
 
 #oauth2
-RUN curl -fSsL \
-    ${GERRITFORGE_URL}/job/plugin-oauth-bazel-master-stable-${PLUGIN_VERSION}/${GERRITFORGE_ARTIFACT_DIR}/oauth/oauth.jar \
-    -o ${GERRIT_HOME}/oauth.jar
 
 #importer
 # Not ready for 3.0
